@@ -4,26 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class Selenium {
+public class TitleService {
     private final ResourceLoader resourceLoader;
-    public void open() throws IOException {
+    public void TitleSearch() throws IOException {
         int page = 2;
         String songTitle = "강남";
         String url = "https://www.genie.co.kr/search/searchSong?Coll=sAll&query=" + songTitle + "&page=" + page +"&pagesize=20&of=SCORE&fscount=&Genre=&Country=&reQuery=&researchyn=N";
@@ -60,6 +52,9 @@ public class Selenium {
 
         driver.quit();
     }
+
+
+
 
     class Song {
         String artist;
@@ -119,20 +114,11 @@ public class Selenium {
         public void setDownload_Link(String download_Link) {
             this.download_Link = download_Link;
         }
-
-
-        @Override
-        public String toString() {
-            return "Song{" +
-                    "artist='" + artist + '\'' +
-                    ", image='" + image + '\'' +
-                    ", album='" + album + '\'' +
-                    ", Song_id='" + Song_id + '\'' +
-                    ", download_Link='" + download_Link + '\'' +
-                    ", title='" + title + '\'' +
-                    '}';
-        }
     }
+
+
+
+
 }
 
 
