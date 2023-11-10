@@ -37,7 +37,7 @@ public class TitleService {
             song.setImage(imageElement.getAttribute("src"));
 
             WebElement infoElement = web.findElement(By.className("info"));
-            String title = infoElement.findElement(By.cssSelector("a.title.ellipsis")).getText();
+            String title = infoElement.findElement(By.cssSelector("a.title.ellipsis")).getAttribute("title");
             song.setTitle(title);
 
             String artist = infoElement.findElement(By.cssSelector("a.artist.ellipsis")).getText();

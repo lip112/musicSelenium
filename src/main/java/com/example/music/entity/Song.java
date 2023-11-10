@@ -63,11 +63,11 @@ public class Song {
     public String toString() {
         return "Song{" +
                 "artist='" + artist + '\'' +
-                ", image='" + image + '\'' +
                 ", album='" + album + '\'' +
                 ", Song_id='" + Song_id + '\'' +
                 ", download_Link='" + download_Link + '\'' +
                 ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
