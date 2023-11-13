@@ -5,16 +5,17 @@ import com.example.music.entity.Album;
 import com.example.music.entity.Artist;
 import com.example.music.entity.Song;
 import lombok.RequiredArgsConstructor;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.tomcat.jni.Time;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v85.tracing.model.TraceConfig;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Driver;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class ArtistService {
         driver.quit();
     }
 
-    public void ArtistDetail(String ArtistId) throws IOException {
+    public void ArtistDetail(String ArtistId) throws IOException, InterruptedException {
 
         String url = "https://www.genie.co.kr/detail/artistSong?xxnm=" + ArtistId;
 
@@ -75,28 +76,37 @@ public class ArtistService {
         driver.get(url);
         List<Song> songs = new ArrayList<>();
 
+
         //page number
         WebElement element1 = driver.findElement(By.className("page-nav"));
         List<WebElement> pageElement = element1.findElements(By.cssSelector("div.page-nav > a"));
         pageElement.remove(pageElement.size() - 1);
         pageElement.remove(0);
 
-        pageElement.get(2).click();
-        //
+        new WebDriverWait(driver, Duration.ofSeconds(100))
+                .until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
+
+        pageElement.get(5).click();
+
+        Thread.sleep(1000);
+
+        new WebDriverWait(driver, Duration.ofSeconds(100))
+                .until(ExpectedConditions.jsReturnsValue("return document.readyState === 'complete';"));
+
+        Thread.sleep(1000);
+
+        WebElement element = driver.findElement(By.className("list-wrap"));
+
         String totalSongCount = driver.findElement(By.cssSelector("#songlist-box > div.tit-box > span > strong")).getText();
         System.out.println("totalSongCount = " + totalSongCount);
-
-        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.className("list-wrap")));
-
 
         List<WebElement> elements = element.findElements(By.cssSelector("tr.list"));//tr태그의 list클래스
 
         for (WebElement web : elements) {
             Song song = new Song();
 
-            WebElement imageElement = web.findElement(By.cssSelector("a.cover > img"));
-            song.setImage(imageElement.getAttribute("src"));
+            String src = web.findElement(By.cssSelector("a.cover > img")).getAttribute("src");
+            song.setImage(src);
 
             WebElement infoElement = web.findElement(By.className("info"));
             String title = infoElement.findElement(By.cssSelector("a.title.ellipsis")).getAttribute("title");

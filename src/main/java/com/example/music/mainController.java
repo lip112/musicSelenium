@@ -17,7 +17,7 @@ public class mainController {
     private final ArtistService artistService;
 
     @GetMapping("/")
-    public void main() throws IOException {
+    public void main() throws IOException, InterruptedException {
 //        albumService.DetailAlbum("82184531");
 
         artistService.ArtistDetail("14945854");

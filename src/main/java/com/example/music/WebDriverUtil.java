@@ -35,7 +35,6 @@ public class WebDriverUtil {
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--disable-gpu"); //gpu를사용하지 않음 리눅스로 헤드리스를 사용할때 필요
         chromeOptions.addArguments("--disable-popup-blocking");       //팝업안띄움
-        chromeOptions.addArguments("headless");                       //브라우저 안띄움
         chromeOptions.addArguments("--blink-settings=imagesEnabled=false"); //이미지 다운 안받음
 
 
